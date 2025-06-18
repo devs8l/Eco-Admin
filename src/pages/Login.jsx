@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Authgate = () => {
+const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -49,4 +49,4 @@ const Authgate = () => {
   );
 };
 
-export default Authgate;
+export default Login;
