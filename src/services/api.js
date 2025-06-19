@@ -13,21 +13,31 @@ export const fetchBookings = async () => {
   }
 };
 
-export const updateBookingStatus = async (id, newStatus) => {
+
+export const updateBookingStatus = async (id, status) => {
   try {
     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/bookings/${id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ status: newStatus }),
+      body: JSON.stringify({ status }),
     });
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
     return await response.json();
   } catch (error) {
     console.error('Error updating booking status:', error);
-    return { success: false };
+    throw error;
+  }
+};
+
+export const deleteBooking = async (id) => {
+  try {
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/bookings/${id}`, {
+      method: 'DELETE',
+    });
+    return await response.json();
+  } catch (error) {
+    console.error('Error deleting booking:', error);
+    throw error;
   }
 };
