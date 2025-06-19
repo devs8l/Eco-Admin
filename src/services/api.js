@@ -1,7 +1,13 @@
 // services/api.js
 export const fetchBookings = async () => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/bookings`);
+    const token = localStorage.getItem('ecoAdminToken');
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/bookings`, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -16,10 +22,12 @@ export const fetchBookings = async () => {
 
 export const updateBookingStatus = async (id, status) => {
   try {
+    const token = localStorage.getItem('ecoAdminToken');
     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/bookings/${id}`, {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({ status }),
     });
@@ -32,8 +40,13 @@ export const updateBookingStatus = async (id, status) => {
 
 export const deleteBooking = async (id) => {
   try {
+    const token = localStorage.getItem('ecoAdminToken');
     const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/bookings/${id}`, {
       method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
     });
     return await response.json();
   } catch (error) {
