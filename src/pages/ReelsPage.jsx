@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Play, Pause, Trash2, Upload } from 'lucide-react';
-import { fetchReels, uploadReel, deleteReel } from '../services/reelApi';
+import { fetchReels, deleteReel, uploadVideoToCloudinary } from '../services/reelApi';
 
 const ReelsPage = () => {
   const [playingStates, setPlayingStates] = useState({});
@@ -12,6 +12,7 @@ const ReelsPage = () => {
     description: '',
     file: null
   });
+  const [uploadProgress, setUploadProgress] = useState(0);
   const videoRefs = useRef({});
 
   useEffect(() => {
@@ -65,23 +66,39 @@ const ReelsPage = () => {
     }));
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newVideo.file || !newVideo.title) return;
 
-    const formData = new FormData();
-    formData.append('title', newVideo.title);
-    formData.append('description', newVideo.description);
-    formData.append('video', newVideo.file);
-
     try {
-      const createdReel = await uploadReel(formData);
+      // 1. Upload to Cloudinary
+      const cloudinaryResult = await uploadVideoToCloudinary(newVideo.file);
+      
+      // 2. Save metadata to database
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/reels`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: newVideo.title,
+          description: newVideo.description,
+          videoUrl: cloudinaryResult.secure_url,
+          publicId: cloudinaryResult.public_id
+        })
+      });
+
+      if (!response.ok) throw new Error('Failed to save reel');
+
+      const createdReel = await response.json();
       setVideos([createdReel, ...videos]);
       setNewVideo({
         title: '',
         description: '',
         file: null
       });
+      setUploadProgress(0);
     } catch (error) {
       console.error('Error uploading reel:', error);
       setError(error.message);
@@ -189,14 +206,23 @@ const ReelsPage = () => {
               />
             </label>
             <p className="text-xs text-gray-500">Max file size: 100MB</p>
+            
+            {uploadProgress > 0 && uploadProgress < 100 && (
+              <div className="w-full bg-gray-200 rounded h-2.5">
+                <div 
+                  className="bg-green-600 h-2.5 rounded" 
+                  style={{ width: `${uploadProgress}%` }}
+                ></div>
+              </div>
+            )}
           </div>
           
           <button
             type="submit"
             className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:bg-gray-400"
-            disabled={!newVideo.file || !newVideo.title}
+            disabled={!newVideo.file || !newVideo.title || uploadProgress > 0}
           >
-            Upload Reel
+            {uploadProgress > 0 ? `Uploading... ${uploadProgress}%` : 'Upload Reel'}
           </button>
         </form>
       </div>
