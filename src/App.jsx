@@ -6,6 +6,8 @@ import FormsDataPage from './pages/FormsDataPage';
 import ReelsPage from './pages/ReelsPage';
 import Login from './pages/Login';
 import Packages from './pages/Packages';
+import RoomImages from './pages/RoomImages';
+import Gallery from './pages/Gallery';
 
 
 const App = () => {
@@ -16,6 +18,8 @@ const App = () => {
         <Route path="forms" element={<FormsDataPage />} />
         <Route path="reels" element={<ReelsPage />} />
         <Route path="packages" element={<Packages />} />
+        <Route path="room-images" element={<RoomImages />} />
+        <Route path="gallery" element={<Gallery />} />
         <Route index element={<FormsDataPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />

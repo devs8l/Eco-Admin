@@ -57,6 +57,24 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 Packages Data
               </Link>
             </li>
+            <li>
+              <Link
+                to="/admin/room-images"
+                className="block px-4 py-2 rounded hover:bg-gray-700 transition"
+                onClick={() => window.innerWidth < 768 && toggleSidebar()}
+              >
+                Room Images
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/gallery"
+                className="block px-4 py-2 rounded hover:bg-gray-700 transition"
+                onClick={() => window.innerWidth < 768 && toggleSidebar()}
+              >
+                Gallery
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

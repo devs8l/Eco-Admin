@@ -13,7 +13,7 @@ export const fetchReels = async () => {
 export const uploadVideoToCloudinary = async (videoFile) => {
     try {
         // Get signed credentials
-        const res = await fetch(`http://localhost:3000/api/signature`, {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/signature`, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('ecoAdminToken')}`
             }
