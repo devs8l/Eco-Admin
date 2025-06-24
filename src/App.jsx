@@ -9,6 +9,7 @@ import Packages from './pages/Packages';
 import RoomImages from './pages/RoomImages';
 import Gallery from './pages/Gallery';
 import Facilites from './pages/Facilites';
+import Feedback from './pages/Feedback';
 
 
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="room-images" element={<RoomImages />} />
         <Route path="gallery" element={<Gallery />} />
         <Route path="facilities" element={<Facilites />} />
+        <Route path="feedback" element={<Feedback />} />
         <Route index element={<FormsDataPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />

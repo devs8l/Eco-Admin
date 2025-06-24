@@ -84,6 +84,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 Facilities
               </Link>
             </li>
+            <li>
+              <Link
+                to="/admin/feedback"
+                className="block px-4 py-2 rounded hover:bg-gray-700 transition"
+                onClick={() => window.innerWidth < 768 && toggleSidebar()}
+              >
+                Feedback
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>
