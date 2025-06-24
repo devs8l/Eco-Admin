@@ -222,7 +222,7 @@ const RoomImages = () => {
 
                     <div className="absolute inset-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-end">
                       <div className="w-full p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 bg-gradient-to-t from-black/70 to-transparent">
-                        <div className="flex justify-between">
+                        <div className="flex justify-end">
                           
                           <button
                             onClick={() => triggerFileInput(index)}

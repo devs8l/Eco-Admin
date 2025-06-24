@@ -8,6 +8,7 @@ import Login from './pages/Login';
 import Packages from './pages/Packages';
 import RoomImages from './pages/RoomImages';
 import Gallery from './pages/Gallery';
+import Facilites from './pages/Facilites';
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="packages" element={<Packages />} />
         <Route path="room-images" element={<RoomImages />} />
         <Route path="gallery" element={<Gallery />} />
+        <Route path="facilities" element={<Facilites />} />
         <Route index element={<FormsDataPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />
