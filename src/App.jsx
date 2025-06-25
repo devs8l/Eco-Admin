@@ -10,6 +10,7 @@ import RoomImages from './pages/RoomImages';
 import Gallery from './pages/Gallery';
 import Facilites from './pages/Facilites';
 import Feedback from './pages/Feedback';
+import HeroBento from './pages/HeroBento';
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="gallery" element={<Gallery />} />
         <Route path="facilities" element={<Facilites />} />
         <Route path="feedback" element={<Feedback />} />
+        <Route path="hero-bento" element={<HeroBento />} />
         <Route index element={<FormsDataPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/login" replace />} />

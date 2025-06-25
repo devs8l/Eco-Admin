@@ -93,6 +93,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 Feedback
               </Link>
             </li>
+            <li>
+              <Link
+                to="/admin/hero-bento"
+                className="block px-4 py-2 rounded hover:bg-gray-700 transition"
+                onClick={() => window.innerWidth < 768 && toggleSidebar()}
+              >
+                All Bento Grids
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>
